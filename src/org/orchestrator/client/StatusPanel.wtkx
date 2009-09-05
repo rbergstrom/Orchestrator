@@ -1,0 +1,65 @@
+<TablePane
+xmlns:wtkx="http://pivot.apache.org/wtkx"
+xmlns:content="org.apache.pivot.wtk.content"
+xmlns="org.apache.pivot.wtk">
+    <columns>
+        <TablePane.Column width="1*" />
+    </columns>
+    <rows>
+        <TablePane.Row height="1*">
+            <BoxPane orientation="vertical" styles="{padding:4, spacing:6, fill:true}">
+                <Label wtkx:id="statusTitleLabel" styles="{font:'Verdana bold 14'}" />
+                <Label wtkx:id="statusAlbumLabel" />
+                <Label wtkx:id="statusArtistLabel" />
+            </BoxPane>
+        </TablePane.Row>
+        <TablePane.Row height="-1">
+            <BoxPane orientation="vertical" styles="{fill:true, padding:6}">
+                <Slider wtkx:id="seekSlider" range="{start:0, end:1}" value="0" />
+            </BoxPane>
+        </TablePane.Row>
+        <TablePane.Row height="-1">
+            <TablePane>
+                <columns>
+                    <TablePane.Column width="100" />
+                    <TablePane.Column width="1*" />
+                    <TablePane.Column width="100" />
+                </columns>
+                <rows>
+                    <TablePane.Row height="1*">
+                        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'center', padding:6}">
+                            <Label wtkx:id="statusTimeLabel" />
+                        </BoxPane>
+                        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+                            <LinkButton wtkx:id="prevButton" >
+                                <buttonData>
+                                    <content:ButtonData icon="@media-skip-backward.png" />
+                                </buttonData>
+                            </LinkButton>
+                            <StackPane>
+                                <LinkButton wtkx:id="playButton" >
+                                    <buttonData>
+                                        <content:ButtonData icon="@media-playback-start.png" />
+                                    </buttonData>
+                                </LinkButton>
+                                <LinkButton wtkx:id="pauseButton" visible="false">
+                                    <buttonData>
+                                        <content:ButtonData icon="@media-playback-pause.png" />
+                                    </buttonData>
+                                </LinkButton>
+                            </StackPane>
+                            <LinkButton wtkx:id="nextButton" >
+                                <buttonData>
+                                    <content:ButtonData icon="@media-skip-forward.png" />
+                                </buttonData>
+                            </LinkButton>
+                        </BoxPane>
+                        <BoxPane styles="{horizontalAlignment:'right', verticalAlignment:'center', padding:6}">
+                            <Slider wtkx:id="volumeSlider" range="{start:0, end:100}" preferredWidth="75" />
+                        </BoxPane>
+                    </TablePane.Row>
+                </rows>
+            </TablePane>
+        </TablePane.Row>
+    </rows>
+</TablePane>

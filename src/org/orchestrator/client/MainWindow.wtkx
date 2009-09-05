@@ -1,0 +1,77 @@
+<Window title="%Orchestrator" maximized="true"
+    xmlns:wtkx="http://pivot.apache.org/wtkx"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:effects="org.apache.pivot.wtk.effects"
+    xmlns="org.apache.pivot.wtk">
+    <wtkx:define>
+        <wtkx:include wtkx:id="libraryPicker" src="LibraryPicker.wtkx" />
+    </wtkx:define>
+    <content>
+        <TablePane>
+            <columns>
+                <TablePane.Column width="1*" />
+            </columns>
+            <rows>
+                <TablePane.Row height="200">
+                    <TablePane>
+                        <columns>
+                            <TablePane.Column width="200" />
+                            <TablePane.Column width="1*" />
+                        </columns>
+                        <rows>
+                            <TablePane.Row height="1*">
+                                <ImageView wtkx:id="albumArtImageView" width="200" height="200" image="@note.png" />
+                                <wtkx:include wtkx:id="statusPanel" src="StatusPanel.wtkx" />
+                            </TablePane.Row>
+                        </rows>
+                    </TablePane>
+                </TablePane.Row>
+                <TablePane.Row height="1*">
+                    <TabPane>
+                        <tabs>
+                            <ScrollPane TabPane.label="Now Playing"
+                            horizontalScrollBarPolicy="fill_to_capacity"
+                            verticalScrollBarPolicy="fill_to_capacity">
+                                <view>
+                                    <TableView wtkx:id="nowPlayingTableView">
+                                        <columns>
+                                            <TableView.Column name="name" headerData="Name" width="4*"/>
+                                            <TableView.Column name="artist" headerData="Artist" width="2*"/>
+                                            <TableView.Column name="album" headerData="Album" width="3*"/>
+                                            <TableView.Column name="time" headerData="Time" width="1*"/>
+                                        </columns>
+                                    </TableView>
+                                </view>
+                                <columnHeader>
+                                    <TableViewHeader tableView="$nowPlayingTableView" styles="{headersPressable:false}"/>
+                                </columnHeader>
+                            </ScrollPane>
+                            <ScrollPane TabPane.label="Songs"
+                            horizontalScrollBarPolicy="fill_to_capacity"
+                            verticalScrollBarPolicy="fill_to_capacity">
+                                <view>
+                                    <TableView wtkx:id="songsTableView">
+                                        <columns>
+                                            <TableView.Column name="name" headerData="Name" width="4*"/>
+                                            <TableView.Column name="artist" headerData="Artist" width="2*"/>
+                                            <TableView.Column name="album" headerData="Album" width="3*"/>
+                                            <TableView.Column name="time" headerData="Time" width="1*"/>
+                                        </columns>
+                                    </TableView>
+                                </view>
+                                <columnHeader>
+                                    <TableViewHeader tableView="$songsTableView" styles="{headersPressable:false}"/>
+                                </columnHeader>
+                            </ScrollPane>
+                        </tabs>
+                        <corner>
+                            <BoxPane styles="{horizontalAlignment:'right', padding:2}">
+                                <TextInput />
+                            </BoxPane>
+                        </corner>
+                    </TabPane>
+                </TablePane.Row>
+            </rows>
+        </TablePane>
+    </content>
+</Window>

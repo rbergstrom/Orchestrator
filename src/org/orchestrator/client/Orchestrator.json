@@ -1,0 +1,13 @@
+{
+	Orchestrator: "Orchestrator",
+	LibraryPicker: "Available Libraries",
+	Cancel: "Cancel",
+	Connect: "Connect",
+	AvailableLibraries: "Available Libraries:",
+	LibrarySearchingStatus: "Searching for libraries...",
+	LibraryBeginLoginStatus: "Logging into library...",
+	LibraryBeginPairingStatus: "Please enter any 4-digit code into iTunes.",
+	LibraryLoginFailedStatus: "Login failed!",
+	LibraryLoginSucceededStatus: "Login succeeded!",
+	LibraryDonePairingStatus: "Pairing complete, logging in...",
+}
