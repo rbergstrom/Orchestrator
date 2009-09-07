@@ -32,4 +32,5 @@ public interface SessionEventListener extends EventListener {
 	void endPairing(SessionEvent event);
 	void loginFailed(SessionEvent event);
 	void loginSucceeded(SessionEvent event);
+	void httpError(SessionEvent event);
 }

@@ -33,6 +33,7 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.ActivityIndicator;
+import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.Mouse;
@@ -181,6 +182,12 @@ public final class Orchestrator implements Application {
 		public void loginSucceeded(SessionEvent event) {
 			libraryStatusLabel.setText(resources.getString("LibraryLoginSucceededStatus"));
 			hideLibraryPicker();
+		}
+
+		@Override
+		public void httpError(SessionEvent event) {
+			// TODO: Pass the error message up, maybe. At least handle it better.
+			Alert.alert("An error occurred communicating with iTunes.", window);
 		}
 	};
 	
@@ -352,8 +359,6 @@ public final class Orchestrator implements Application {
 		session = Session.createFromLibrary(library, sessionListener);
 		session.registerStatusUpdateListener(statusListener);
 		containers = session.getContainers(session.getDatabases()[0]);
-		for (LibraryContainer c : containers)
-			System.err.println(c);
 		timeUpdateThread.start();
 		refreshStatus();
 		refreshAlbumArt();

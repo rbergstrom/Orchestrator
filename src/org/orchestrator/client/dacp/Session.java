@@ -142,8 +142,8 @@ public class Session {
 			DACPPacket p = RequestHelper.request(this.host, path).get("mupd").getPacket();
 			this.revision = p.get("musr").getNumber().intValue();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -167,8 +167,8 @@ public class Session {
 			}
 			return dbs.toArray(new LibraryDatabase[dbs.size()]);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return null;
 		}	
 	}
@@ -181,7 +181,6 @@ public class Session {
 		try {
 			DACPPacket p = RequestHelper.request(this.host,
 					String.format("/databases/%d/containers?session-id=%d&meta=dmap.itemname,dmap.itemcount,dmap.itemid,dmap.persistentid,daap.baseplaylist,com.apple.itunes.special-playlist,com.apple.itunes.smart-playlist,com.apple.itunes.saved-genius,dmap.parentcontainerid,dmap.editcommandssupported,com.apple.itunes.jukebox-current", database.getId(), this.sessionId));
-			System.err.println(p);
 			DACPNode[] cnodes =  p.get("aply").get("mlcl").getMultiple("mlit");
 			ArrayList<LibraryContainer> containers = new ArrayList<LibraryContainer>();
 			for (DACPNode n : cnodes) {
@@ -191,8 +190,8 @@ public class Session {
 			}
 			return containers.toArray(new LibraryContainer[containers.size()]);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return null;
 		}
 	}
@@ -229,8 +228,8 @@ public class Session {
 			}
 			return items.toArray(new LibraryItem[items.size()]);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return null;
 		}
 	}
@@ -243,8 +242,8 @@ public class Session {
 			this.revision = p.get("cmsr").getNumber().intValue();
 			return p;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return null;
 		}
 	}
@@ -257,8 +256,8 @@ public class Session {
 			RequestHelper.request(this.host, 
 					String.format("/ctrl-int/1/setproperty?dacp.playingtime=%d&session-id=%d", position, this.sessionId));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -270,8 +269,8 @@ public class Session {
 			RequestHelper.request(this.host, 
 					String.format("/ctrl-int/1/setproperty?dacp.shufflestate=%d&session-id=%d", newStatus, this.sessionId));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -283,8 +282,8 @@ public class Session {
 			RequestHelper.request(this.host, 
 					String.format("/ctrl-int/1/setproperty?dacp.repeatstate=%d&session-id=%d", newStatus, this.sessionId));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -298,8 +297,8 @@ public class Session {
 			RequestHelper.request(this.host, 
 					String.format("/ctrl-int/1/setproperty?dmcp.volume=%d&session-id=%d", newVolume, this.sessionId));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -312,8 +311,8 @@ public class Session {
 					String.format("/ctrl-int/1/getproperty?properties=dmcp.volume&session-id=%d", this.sessionId));
 			return p.get("cmgt").get("cmvo").getNumber().intValue();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return -1;
 		}
 		
@@ -336,6 +335,8 @@ public class Session {
 				return null;
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 			return null;
 		}
 	}
@@ -349,8 +350,8 @@ public class Session {
 						new StatusUpdateEvent(this, StatusUpdate.createFromDACPPacket(this.getStatus(true))));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -363,8 +364,8 @@ public class Session {
 						new StatusUpdateEvent(this, StatusUpdate.createFromDACPPacket(this.getStatus(true))));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -377,8 +378,8 @@ public class Session {
 						new StatusUpdateEvent(this, StatusUpdate.createFromDACPPacket(this.getStatus(true))));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 	
@@ -394,8 +395,8 @@ public class Session {
 						new StatusUpdateEvent(this, StatusUpdate.createFromDACPPacket(this.getStatus(true))));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sessionListener.httpError(new SessionEvent(this));
 		}
 	}
 }
