@@ -28,11 +28,19 @@ import org.orchestrator.client.dacp.DACPNode;
 import org.orchestrator.client.util.Utility;
 
 public class LibraryItem {
+	public static final byte RATING_5 = 0x64;
+	public static final byte RATING_4 = 0x50;
+	public static final byte RATING_3 = 0x3c;
+	public static final byte RATING_2 = 0x28;
+	public static final byte RATING_1 = 0x14;
+	public static final byte RATING_NONE = 0x00;
+	
 	protected LibraryContainer parent;
 	protected String name;
 	protected String artist;
 	protected String album;
 	protected String time;
+	protected byte rating;
 	protected long id;
 	protected long index;
 	
@@ -67,6 +75,10 @@ public class LibraryItem {
 	public long getIndex() {
 		return index;
 	}
+	
+	public byte getRating() {
+		return this.rating;
+	}
 
 	public String toString() {
 		return String.format("%d - %s", this.id, this.name);
@@ -79,6 +91,7 @@ public class LibraryItem {
 		i.album = n.get("asal").getString();
 		i.artist = n.get("asar").getString();
 		i.index = n.get("mcti").getNumber().longValue();
+		i.rating = n.get("asur").getNumber().byteValue();
 		i.time = Utility.formatTime(n.get("astm").getNumber().longValue());
 		return i;
 	}

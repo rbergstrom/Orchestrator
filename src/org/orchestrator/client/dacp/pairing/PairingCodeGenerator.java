@@ -20,7 +20,6 @@ public class PairingCodeGenerator {
 
     public static String getCode(String passcode, String pair) 
     {
-        // initialize the temporary param array
         byte[] paramTemp = new byte[64];
         byte[] passcodeBytes = passcode.getBytes();
         byte[] pairBytes = pair.getBytes();
@@ -38,7 +37,7 @@ public class PairingCodeGenerator {
         paramTemp[18] = paramTemp[17];
         paramTemp[19] = paramTemp[17] = 0;
         
-        // conver the byte array to an array of ints (well, longs)
+        // convert the byte array to an array of ints (well, longs)
         long[] param = new long[16];
         for (int i = 0; i < 16; i++) {
         	param[i] = getIntFromBytes(paramTemp, 4*i);

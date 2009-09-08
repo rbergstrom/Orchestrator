@@ -219,7 +219,7 @@ public class Session {
 	public LibraryItem[] getItems(LibraryContainer container) {
 		try {
 			DACPPacket p = RequestHelper.request(this.host,
-					String.format("/databases/%d/containers/%d/items?session-id=%d&meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,dmap.containeritemid,daap.songtime", 
+					String.format("/databases/%d/containers/%d/items?session-id=%d&meta=dmap.itemname,dmap.itemid,daap.songartist,daap.songalbum,daap.songuserrating,dmap.containeritemid,daap.songtime", 
 							container.getParent().getId(), container.getId(), this.sessionId));
 			DACPNode[] inodes = p.get("apso").get("mlcl").getMultiple("mlit");
 			ArrayList<LibraryItem> items = new ArrayList<LibraryItem>();

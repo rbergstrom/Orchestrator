@@ -1,6 +1,8 @@
-package org.orchestrator.client.dacp.pairing;
+package org.orchestrator.dacp.pairing;
 
 import org.junit.Test;
+import org.orchestrator.client.dacp.pairing.PairingCodeGenerator;
+
 import static org.junit.Assert.*;
 
 public class PairingCodeGeneratorTest {

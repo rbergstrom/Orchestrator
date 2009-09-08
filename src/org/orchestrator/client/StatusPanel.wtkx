@@ -8,9 +8,16 @@ xmlns="org.apache.pivot.wtk">
     <rows>
         <TablePane.Row height="1*">
             <BoxPane orientation="vertical" styles="{padding:4, spacing:6, fill:true}">
-                <Label wtkx:id="statusTitleLabel" styles="{font:'Verdana bold 14'}" />
-                <Label wtkx:id="statusAlbumLabel" />
-                <Label wtkx:id="statusArtistLabel" />
+                <Label wtkx:id="statusTitleLabel" styles="{font:'Verdana bold 18'}" />
+                <Label wtkx:id="statusAlbumLabel" styles="{font:'Verdana 12'}"/>
+                <Label wtkx:id="statusArtistLabel" styles="{font:'Verdana 12'}" />
+                <BoxPane>
+                    <ImageView wtkx:id="ratingStar1" visible="false" width="16" height="16" image="@star.png" />
+                    <ImageView wtkx:id="ratingStar2" visible="false" width="16" height="16" image="@star.png" />
+                    <ImageView wtkx:id="ratingStar3" visible="false" width="16" height="16" image="@star.png" />
+                    <ImageView wtkx:id="ratingStar4" visible="false" width="16" height="16" image="@star.png" />
+                    <ImageView wtkx:id="ratingStar5" visible="false" width="16" height="16" image="@star.png" />
+                </BoxPane>
             </BoxPane>
         </TablePane.Row>
         <TablePane.Row height="-1">

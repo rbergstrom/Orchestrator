@@ -36,7 +36,6 @@ import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.Button;
-import org.apache.pivot.wtk.Mouse;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
@@ -46,13 +45,17 @@ import org.apache.pivot.wtk.ImageView;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListView;
 import org.apache.pivot.wtk.ListViewSelectionListener;
+import org.apache.pivot.wtk.Mouse;
 import org.apache.pivot.wtk.PushButton;
+import org.apache.pivot.wtk.ScrollPane;
+import org.apache.pivot.wtk.ScrollPaneListener;
 import org.apache.pivot.wtk.Sheet;
 import org.apache.pivot.wtk.Slider;
 import org.apache.pivot.wtk.SliderValueListener;
 import org.apache.pivot.wtk.Span;
 import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.Window;
+import org.apache.pivot.wtk.ScrollPane.ScrollBarPolicy;
 import org.apache.pivot.wtk.effects.ShadeDecorator;
 import org.apache.pivot.wtk.media.Picture;
 import org.apache.pivot.wtkx.WTKX;
@@ -112,9 +115,15 @@ public final class Orchestrator implements Application {
 	@WTKX(id="statusPanel.nextButton") private Button nextButton;
 	@WTKX(id="statusPanel.seekSlider") private Slider seekSlider;
 	@WTKX(id="statusPanel.volumeSlider") private Slider volumeSlider;
+	@WTKX(id="statusPanel.ratingStar1") private ImageView ratingStar1;
+	@WTKX(id="statusPanel.ratingStar2") private ImageView ratingStar2;
+	@WTKX(id="statusPanel.ratingStar3") private ImageView ratingStar3;
+	@WTKX(id="statusPanel.ratingStar4") private ImageView ratingStar4;
+	@WTKX(id="statusPanel.ratingStar5") private ImageView ratingStar5;
 	
 	@WTKX private TableView nowPlayingTableView;
 	@WTKX private TableView songsTableView;
+	@WTKX private ScrollPane nowPlayingScrollPane;
 	
 	private final Thread timeUpdateThread = new Thread(new Runnable() {
 		@Override
@@ -151,6 +160,9 @@ public final class Orchestrator implements Application {
 						Logging.Debug("Interrupted timer update thread during PAUSE/STOP");
 						continue;
 					}
+				}
+				if (currentPlayState < 0) {
+					break;
 				}
 			}
 		}
@@ -376,7 +388,14 @@ public final class Orchestrator implements Application {
 		libraryPicker.close();
         window.getDecorators().remove(windowOverlay);
 	}
-
+	
+	private void setRating(byte rating) {
+		ratingStar1.setVisible(rating >= LibraryItem.RATING_1);
+		ratingStar2.setVisible(rating >= LibraryItem.RATING_2);
+		ratingStar3.setVisible(rating >= LibraryItem.RATING_3);
+		ratingStar4.setVisible(rating >= LibraryItem.RATING_4);
+		ratingStar5.setVisible(rating >= LibraryItem.RATING_5);
+	}
 	private void refreshStatus() {
 		DACPPacket p = session.getStatus(true);
 		refreshStatus(StatusUpdate.createFromDACPPacket(p));
@@ -398,7 +417,10 @@ public final class Orchestrator implements Application {
 		nowPlayingTableView.setTableData(new ArrayList<LibraryItem>(nowPlayingList));
 		for (LibraryItem item : nowPlayingList) {
 			if (item.getId() == status.getMediaId()) {
-				nowPlayingTableView.setSelectedIndex(nowPlayingList.indexOf(item));
+				int index = nowPlayingList.indexOf(item);
+				nowPlayingTableView.setSelectedIndex(index);
+				nowPlayingScrollPane.setScrollTop(nowPlayingTableView.getRowBounds(index).y);
+				setRating(item.getRating());
 			}
 		}
 	}
@@ -438,6 +460,8 @@ public final class Orchestrator implements Application {
             window.close();
         }
         probe.stopProbe();
+        currentPlayState = -1;
+        timeUpdateThread.interrupt();
         return false;
     }
 

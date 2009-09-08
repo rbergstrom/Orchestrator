@@ -24,8 +24,6 @@
 
 package org.orchestrator.client.dacp;
 
-import java.math.BigInteger;
-
 import org.orchestrator.client.util.Utility;
 
 public class StatusUpdate {

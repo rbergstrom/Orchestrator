@@ -26,8 +26,6 @@ package org.orchestrator.client.dacp.library;
 
 import java.net.InetSocketAddress;
 
-import org.orchestrator.client.dacp.Session;
-
 public class Library {
 	protected InetSocketAddress address;
 	protected String name;

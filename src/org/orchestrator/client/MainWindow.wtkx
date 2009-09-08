@@ -29,7 +29,8 @@
                 <TablePane.Row height="1*">
                     <TabPane>
                         <tabs>
-                            <ScrollPane TabPane.label="Now Playing"
+                            <ScrollPane wtkx:id="nowPlayingScrollPane"
+                            TabPane.label="Now Playing"
                             horizontalScrollBarPolicy="fill_to_capacity"
                             verticalScrollBarPolicy="fill_to_capacity">
                                 <view>
